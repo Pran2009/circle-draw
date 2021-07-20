@@ -1,30 +1,41 @@
-canvas = document.getElementById("canv");
-ctx = canvas.getContext("2d");
+color = "black";
+canvas=document.getElementById("can");
+ctx= canvas.getContext("2d");
+var m_event = "empty";
+var x_last,y_last;
+width=5;
+var rds = 30;
+canvas.addEventListener("mousedown",md);
+function clr() {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+}
+function md(e){
+    color = document.getElementById("c").value;
+    width = document.getElementById("w").value;
+    rds = document.getElementById("r").value;
+    m_event= "mousedown";
+    
+}
+canvas.addEventListener("mousemove",mm);
+function mm(e){
+    currentx=e.clientX-canvas.offsetLeft;
+    currenty=e.clientY-canvas.offsetTop;
+    if (m_event=="mousedown"){
+        ctx.beginPath();
+        ctx.strokeStyle=color;
+        ctx.lineWidth=width;
+        ctx.arc(currentx,currenty,rds,0,2*Math.PI);
+        ctx.stroke()
+    }
+    x_last=currentx;
+    y_last=currenty;
 
-
-//drawing code
-ctx.beginPath();
-ctx.strokeStyle="blue";
-ctx.lineWidth=5;
-ctx.arc(200,200,45,0,2*Math.PI);
-ctx.stroke();
-ctx.beginPath();
-ctx.strokeStyle="black";
-ctx.lineWidth=5;
-ctx.arc(300,200,45,0,2*Math.PI);
-ctx.stroke();
-ctx.beginPath();
-ctx.strokeStyle="red";
-ctx.lineWidth=5;
-ctx.arc(400,200,45,0,2*Math.PI);
-ctx.stroke();
-ctx.beginPath();
-ctx.strokeStyle="gold";
-ctx.lineWidth=5;
-ctx.arc(250,265,45,0,2*Math.PI);
-ctx.stroke();
-ctx.beginPath();
-ctx.strokeStyle="limegreen";
-ctx.lineWidth=5;
-ctx.arc(350,265,45,0,2*Math.PI);
-ctx.stroke();
+}
+canvas.addEventListener("mouseup",mu);
+function mu(e){
+    m_event= "mouseup"; 
+}
+canvas.addEventListener("mouseleave",ml);
+function ml(e){
+    m_event= "mouseleave"; 
+}
